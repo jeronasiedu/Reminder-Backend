@@ -15,7 +15,9 @@ const createNote = handler(async (req, res) => {
 // Get notes
 const getNotes = handler(async (req, res) => {
   const createdBy = req.user.userID
-  const notes = await Note.find({ createdBy }).populate('type', 'name -_id')
+  const notes = await Note.find({ createdBy })
+    .sort('-date')
+    .populate('type', 'name -_id')
   return res.status(200).json({ notes })
 })
 // delete note
